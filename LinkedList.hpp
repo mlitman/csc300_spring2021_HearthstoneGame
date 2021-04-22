@@ -7,12 +7,13 @@ class LinkedList
         Node* tail;
         int count;
         Node* get(int index);
-        void swap(int index1, int index2);
 
     public:
         LinkedList();
         void addEnd(Card* c);
+        Card* removeFront();
         void display();
         int getCount();
         void insertionSortOnDefense();
+        void swap(int index1, int index2);
 };

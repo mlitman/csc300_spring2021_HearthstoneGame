@@ -10,6 +10,7 @@ class Node
     public:
         Node(Card* payload);
         Card* getPayload();
+        void setPayload(Card* c);
         Node* getNextNode();
         Node* getPrevNode();
         void setNextNode(Node* n);

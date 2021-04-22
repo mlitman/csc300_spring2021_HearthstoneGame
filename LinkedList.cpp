@@ -9,6 +9,32 @@ LinkedList::LinkedList()
     this->tail = NULL;
 }
 
+Card* LinkedList::removeFront()
+{
+    if(this->count > 0)
+    {
+        Node* front = this->head;
+        Card* temp = front->getPayload();
+        this->head = front->getNextNode();
+        this->count--;
+
+        if(this->head)
+        {
+            this->head->setPrevNode(NULL);
+        }
+
+        if(this->tail == front)
+        {
+            this->tail = NULL;
+        }
+
+        front->setNextNode(NULL);
+        front->setPrevNode(NULL);
+        delete(front);
+        return temp;
+    }
+}
+
 Node* LinkedList::get(int index)
 {
     Node* node2Return = this->head;
@@ -21,31 +47,11 @@ Node* LinkedList::get(int index)
 
 void LinkedList::swap(int index1, int index2)
 {
-    int smaller = index1;
-    int larger = index2;
-    if(larger < smaller)
-    {
-        smaller = index2;
-        larger = index1;
-    }
-    Node* smallerNode = this->get(smaller);
-    Node* largerNode = this->get(larger);
-    printf("smaller: %d, larger: %d\n", smaller, larger);
-    smallerNode->setNextNode(largerNode->getNextNode());
-    largerNode->setPrevNode(smallerNode->getPrevNode());
-    largerNode->setNextNode(smallerNode);
-    smallerNode->getNextNode()->setPrevNode(smallerNode);
-    smallerNode->setPrevNode(largerNode);
-    if(smaller == 0)
-    {
-        this->head = largerNode;
-    }
-
-    if(larger == this->count-1)
-    {
-        this->tail = smallerNode;
-    }
-    
+    Node* smallerNode = this->get(index1);
+    Node* largerNode = this->get(index2);
+    Card* temp = smallerNode->getPayload();
+    smallerNode->setPayload(largerNode->getPayload());
+    largerNode->setPayload(temp);
 }
 
 void LinkedList::insertionSortOnDefense()
@@ -94,4 +100,7 @@ void LinkedList::display()
         currNode->getPayload()->display();
         currNode = currNode->getNextNode();
     }
+
+    this->head->getPayload()->display();
+    this->tail->getPayload()->display();
 }

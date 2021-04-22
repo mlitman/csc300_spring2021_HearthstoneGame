@@ -13,6 +13,11 @@ Card* Node::getPayload()
     return this->payload;
 }
 
+void Node::setPayload(Card* c)
+{
+    this->payload = c;
+}
+
 Node* Node::getNextNode()
 {
     return this->nextNode;
